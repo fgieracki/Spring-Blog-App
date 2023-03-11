@@ -13,7 +13,7 @@ public class PostResponse {
     private List<PostDTO> content;
     private int pageNo;
     private int pageSize;
-    private long totalElements;
+    private Long totalElements;
     private int totalPages;
     private boolean last;
 }
