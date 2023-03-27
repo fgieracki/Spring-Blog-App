@@ -24,7 +24,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDetails> handleResourceNotFoundException(
             ResourceNotFoundException exception,
             WebRequest webRequest
-    ){
+    ) {
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
                 exception.getMessage(),
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDetails> handleBlogAPIException(
             BlogAPIException exception,
             WebRequest webRequest
-    ){
+    ) {
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
                 exception.getMessage(),
@@ -48,19 +48,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDetails> handleAccessDeniedException(
             AccessDeniedException exception,
             WebRequest webRequest
-    ){
+    ) {
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
                 exception.getMessage(),
                 webRequest.getDescription(false));
-        return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDetails> handleGlobalException(
             Exception exception,
             WebRequest webRequest
-    ){
+    ) {
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
                 exception.getMessage(),
@@ -77,7 +77,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     ) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach(error -> {
-            String fieldName = ((FieldError)error).getField();
+            String fieldName = ((FieldError) error).getField();
             String message = error.getDefaultMessage();
             errors.put(fieldName, message);
         });
